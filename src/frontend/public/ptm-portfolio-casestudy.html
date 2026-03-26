@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTM Student Performance Architect — UX/UI Case Study</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --cream: #F9F7F2;
+    --charcoal: #1A1A1A;
+    --gold: #B79B57;
+    --gold-light: #D4B878;
+    --gold-pale: #F0E8D0;
+    --gray: #6B6B6B;
+    --gray-light: #E8E4DC;
+    --white: #FFFFFF;
+    --shadow: 0 4px 24px rgba(26,26,26,0.08);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    page-break-after: always;
+    min-height: 100vh;
+    background: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(183,155,87,0.2);
+    top: -200px; right: -200px;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(183,155,87,0.1);
+    bottom: -150px; left: -100px;
+  }
+  .cover-badge {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+  .cover h1 span { color: var(--gold); }
+  .cover-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    max-width: 500px;
+    margin-bottom: 64px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 32px;
+  }
+  .cover-meta-item { text-align: center; }
+  .cover-meta-item .label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+  .cover-meta-item .value { font-size: 14px; color: var(--white); font-weight: 500; }
+
+  /* SECTION */
+  .section {
+    page-break-before: always;
+    padding: 60px;
+    min-height: 100vh;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gold-pale);
+  }
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--charcoal);
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--gray);
+    max-width: 600px;
+    margin-top: 8px;
+  }
+
+  /* PERSONA CARDS */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .persona-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .persona-card-header {
+    background: var(--charcoal);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .persona-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .persona-card-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .persona-card-header p { font-size: 12px; color: var(--gold-light); }
+  .persona-body { padding: 28px 32px; }
+  .persona-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .persona-block h4 {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .persona-block ul { list-style: none; }
+  .persona-block ul li {
+    font-size: 12px;
+    color: var(--charcoal);
+    padding: 5px 0;
+    padding-left: 14px;
+    position: relative;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .persona-block ul li:last-child { border-bottom: none; }
+  .persona-block ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .persona-quote {
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal);
+  }
+  .persona-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .persona-stat {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .persona-stat .stat-val {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .persona-stat .stat-label {
+    font-size: 10px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* STORYBOARD */
+  .storyboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .story-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .story-scene {
+    background: var(--charcoal);
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .story-scene .scene-num {
+    position: absolute;
+    top: 12px; left: 14px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .story-scene .scene-icon {
+    font-size: 36px;
+  }
+  .story-scene .scene-title {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .story-body { padding: 18px; }
+  .story-body h4 {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--charcoal);
+  }
+  .story-body p {
+    font-size: 11.5px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .story-emotion {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .emotion-anxious { background: #FFF3CD; color: #856404; }
+  .emotion-focused { background: #D1ECF1; color: #0C5460; }
+  .emotion-confident { background: #D4EDDA; color: #155724; }
+  .emotion-satisfied { background: var(--gold-pale); color: #7A6230; }
+  .emotion-relieved { background: #E2D9F3; color: #491D8B; }
+  .emotion-proud { background: #FFE5D0; color: #7B3F00; }
+
+  /* UX FLOW */
+  .flow-section { margin-bottom: 48px; }
+  .flow-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .flow-step {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 16px 14px;
+    min-width: 130px;
+    flex-shrink: 0;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step .step-icon { font-size: 22px; margin-bottom: 8px; }
+  .flow-step .step-name { font-size: 11px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+  .flow-step .step-desc { font-size: 10px; color: var(--gray); line-height: 1.4; }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .flow-step.highlight {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+  .flow-step.highlight .step-name { color: var(--white); }
+  .flow-step.highlight .step-desc { color: rgba(255,255,255,0.6); }
+  .flow-step.accent {
+    background: var(--gold-pale);
+    border-color: var(--gold);
+  }
+
+  .touchpoint-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .touchpoint-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--gold);
+  }
+  .touchpoint-card h4 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  .touchpoint-card ul { list-style: none; }
+  .touchpoint-card ul li { font-size: 11px; color: var(--gray); padding: 3px 0; border-bottom: 1px solid var(--gray-light); }
+  .touchpoint-card ul li:last-child { border-bottom: none; }
+
+  /* DESIGN SYSTEM */
+  .ds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .ds-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+  }
+  .ds-card h3 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .color-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .color-swatch {
+    text-align: center;
+  }
+  .swatch-box {
+    width: 64px; height: 64px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .swatch-name { font-size: 10px; font-weight: 600; color: var(--charcoal); }
+  .swatch-hex { font-size: 10px; color: var(--gray); }
+
+  .type-row {
+    border-bottom: 1px solid var(--gray-light);
+    padding: 12px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-spec { font-size: 10px; color: var(--gray); min-width: 180px; }
+  .type-preview { color: var(--charcoal); }
+
+  .spacing-row { display: flex; align-items: center; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--gray-light); }
+  .spacing-row:last-child { border-bottom: none; }
+  .spacing-bar { background: var(--gold); height: 12px; border-radius: 4px; flex-shrink: 0; }
+  .spacing-label { font-size: 11px; color: var(--charcoal); min-width: 80px; }
+  .spacing-val { font-size: 10px; color: var(--gray); }
+
+  .shadow-row { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--gray-light); }
+  .shadow-row:last-child { border-bottom: none; }
+  .shadow-box { width: 48px; height: 48px; border-radius: 8px; background: var(--white); flex-shrink: 0; }
+  .shadow-details h4 { font-size: 11px; font-weight: 600; color: var(--charcoal); }
+  .shadow-details p { font-size: 10px; color: var(--gray); font-family: monospace; margin-top: 2px; }
+
+  .grid-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .grid-pill {
+    background: var(--cream);
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 11px;
+    color: var(--charcoal);
+  }
+  .grid-pill span { color: var(--gold); font-weight: 600; }
+
+  /* UI KIT */
+  .uikit-section { margin-bottom: 40px; }
+  .uikit-section h3 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gold-pale);
+  }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn-spec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-label { font-size: 10px; color: var(--gray); text-align: center; }
+
+  .btn { padding: 10px 22px; border-radius: 10px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; font-family: 'Inter', sans-serif; }
+  .btn-primary { background: var(--charcoal); color: var(--white); }
+  .btn-gold { background: var(--gold); color: var(--white); }
+  .btn-outline { background: transparent; color: var(--charcoal); border: 1.5px solid var(--charcoal); }
+  .btn-outline-gold { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+  .btn-ghost { background: var(--cream); color: var(--charcoal); }
+  .btn-danger { background: #DC3545; color: var(--white); }
+  .btn-sm { padding: 6px 14px; font-size: 11px; border-radius: 8px; }
+  .btn-lg { padding: 14px 32px; font-size: 14px; border-radius: 12px; }
+
+  .card-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .card-spec {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    min-width: 180px;
+    flex: 1;
+  }
+  .card-spec .card-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .card-spec h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .card-spec p { font-size: 11px; color: var(--gray); }
+
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .badge-gold { background: var(--gold-pale); color: #7A6230; border: 1px solid var(--gold-light); }
+  .badge-dark { background: var(--charcoal); color: var(--white); }
+  .badge-success { background: #D4EDDA; color: #155724; }
+  .badge-warning { background: #FFF3CD; color: #856404; }
+  .badge-danger { background: #F8D7DA; color: #721C24; }
+  .badge-neutral { background: var(--gray-light); color: var(--gray); }
+
+  .form-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .form-spec { min-width: 200px; flex: 1; }
+  .form-spec label { display: block; font-size: 10px; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input-focused { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(183,155,87,0.15); }
+  .form-input-error { border-color: #DC3545; }
+  .form-helper { font-size: 10px; color: var(--gray); margin-top: 4px; }
+  .form-helper.error { color: #DC3545; }
+
+  .progress-spec { margin-bottom: 16px; }
+  .progress-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 11px; }
+  .progress-track { background: var(--gray-light); height: 8px; border-radius: 20px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 20px; background: var(--gold); }
+
+  .nav-spec {
+    background: var(--charcoal);
+    border-radius: 16px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--white); }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-link { font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-link.active { color: var(--gold); font-weight: 500; }
+  .nav-cta { background: var(--gold); color: var(--white); padding: 7px 18px; border-radius: 8px; font-size: 11px; font-weight: 500; text-decoration: none; }
+
+  .table-spec { width: 100%; border-collapse: collapse; }
+  .table-spec th { text-align: left; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); padding: 10px 14px; border-bottom: 2px solid var(--gold-pale); }
+  .table-spec td { padding: 10px 14px; font-size: 12px; border-bottom: 1px solid var(--gray-light); color: var(--charcoal); }
+  .table-spec tr:last-child td { border-bottom: none; }
+  .table-spec tr:hover td { background: var(--cream); }
+
+  /* PAGE BREAK */
+  .page-break { page-break-after: always; }
+
+  /* PRINT STYLES */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section { page-break-before: always; }
+    .cover { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="cover-badge">UX / UI Case Study</div>
+  <h1>PTM Student<br><span>Performance Architect</span></h1>
+  <p class="cover-sub">A digital platform reimagining Parent-Teacher Meetings for Design Colleges — from data entry to presentation.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="label">Project Type</div><div class="value">Full-Stack Web App</div></div>
+    <div class="cover-meta-item"><div class="label">Platform</div><div class="value">Internet Computer (ICP)</div></div>
+    <div class="cover-meta-item"><div class="label">Stack</div><div class="value">React · Motoko · Three.js</div></div>
+    <div class="cover-meta-item"><div class="label">Year</div><div class="value">2026</div></div>
+  </div>
+  <!-- Device Mockups -->
+  <div style="display:flex;gap:40px;align-items:flex-end;justify-content:center;margin-top:48px;">
+    <div style="text-align:center;">
+      <svg width="280" height="180" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="10" width="240" height="150" rx="8" fill="#2A2A2A" stroke="#B79B57" stroke-width="1.5"/>
+        <rect x="28" y="18" width="224" height="132" rx="4" fill="#1A1A1A"/>
+        <rect x="32" y="22" width="216" height="124" rx="3" fill="#F9F7F2" opacity="0.95"/>
+        <rect x="36" y="26" width="208" height="16" rx="2" fill="#1A1A1A"/>
+        <text x="44" y="38" font-family="Inter,sans-serif" font-size="7" fill="#B79B57" font-weight="600">PTM ARCHITECT</text>
+        <rect x="36" y="46" width="80" height="40" rx="4" fill="#FFF0F0" stroke="#FFD6D6" stroke-width="0.5"/>
+        <rect x="36" y="46" width="80" height="6" rx="2" fill="#D4B878" opacity="0.3"/>
+        <rect x="120" y="46" width="80" height="40" rx="4" fill="#F0F8FF" stroke="#C8E6FF" stroke-width="0.5"/>
+        <rect x="120" y="46" width="80" height="6" rx="2" fill="#B79B57" opacity="0.3"/>
+        <rect x="204" y="46" width="44" height="40" rx="4" fill="#F5F0FF" stroke="#DDD6FE" stroke-width="0.5"/>
+        <rect x="36" y="92" width="212" height="50" rx="4" fill="#FFFBF0" stroke="#FFE8A0" stroke-width="0.5"/>
+        <rect x="44" y="98" width="60" height="3" rx="1.5" fill="#B79B57" opacity="0.6"/>
+        <rect x="44" y="105" width="100" height="3" rx="1.5" fill="#1A1A1A" opacity="0.2"/>
+        <rect x="44" y="112" width="80" height="3" rx="1.5" fill="#1A1A1A" opacity="0.15"/>
+        <rect x="0" y="160" width="280" height="14" rx="4" fill="#2A2A2A" stroke="#B79B57" stroke-width="1"/>
+        <rect x="105" y="160" width="70" height="6" rx="3" fill="#1A1A1A"/>
+      </svg>
+      <p style="color:#B79B57;font-size:11px;margin-top:8px;font-family:'Inter',sans-serif;letter-spacing:0.1em;">ADMIN VIEW</p>
+    </div>
+    <div style="text-align:center;">
+      <svg width="100" height="180" viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="92" height="172" rx="16" fill="#2A2A2A" stroke="#B79B57" stroke-width="1.5"/>
+        <rect x="8" y="8" width="84" height="164" rx="13" fill="#F9F7F2"/>
+        <rect x="8" y="8" width="84" height="14" rx="13" fill="#1A1A1A"/>
+        <rect x="35" y="10" width="30" height="8" rx="4" fill="#1A1A1A"/>
+        <circle cx="26" cy="38" r="12" fill="#E8E4DC"/>
+        <rect x="42" y="30" width="42" height="5" rx="2.5" fill="#1A1A1A" opacity="0.7"/>
+        <rect x="42" y="39" width="30" height="3" rx="1.5" fill="#B79B57" opacity="0.6"/>
+        <rect x="12" y="56" width="76" height="30" rx="8" fill="#FFF0F0" stroke="#FFD6D6" stroke-width="0.5"/>
+        <rect x="12" y="56" width="76" height="8" rx="4" fill="#D4B878" opacity="0.25"/>
+        <rect x="12" y="92" width="76" height="22" rx="6" fill="#F0F8FF" stroke="#C8E6FF" stroke-width="0.5"/>
+        <rect x="12" y="120" width="76" height="22" rx="6" fill="#F5F0FF" stroke="#DDD6FE" stroke-width="0.5"/>
+        <rect x="12" y="148" width="76" height="16" rx="6" fill="#FFFBF0" stroke="#FFE8A0" stroke-width="0.5"/>
+        <rect x="35" y="166" width="30" height="3" rx="1.5" fill="#2A2A2A"/>
+      </svg>
+      <p style="color:#B79B57;font-size:11px;margin-top:8px;font-family:'Inter',sans-serif;letter-spacing:0.1em;">PARENT VIEW</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 01. PERSONAS ==================== -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-number">01 — Personas</div>
+      <h2 class="section-title">Who Are We Designing For?</h2>
+      <p class="section-desc">Two distinct user archetypes interact with the platform — each with very different needs, contexts, and emotional states.</p>
+    </div>
+  </div>
+
+  <div class="persona-grid">
+
+    <!-- PROFESSOR -->
+    <div class="persona-card">
+      <div class="persona-card-header">
+        <div class="persona-avatar">👩‍🏫</div>
+        <div>
+          <h3>Prof. Ananya Sharma</h3>
+          <p>Design Faculty · 12 years experience · Age 38</p>
+        </div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-stat-row">
+          <div class="persona-stat"><span class="stat-val">40+</span><span class="stat-label">Students/Sem</span></div>
+          <div class="persona-stat"><span class="stat-val">8</span><span class="stat-label">Semesters</span></div>
+          <div class="persona-stat"><span class="stat-val">5</span><span class="stat-label">Core Subjects</span></div>
+        </div>
+        <div class="persona-row">
+          <div class="persona-block">
+            <h4>Goals</h4>
+            <ul>
+              <li>Present student data professionally</li>
+              <li>Save time during PTM sessions</li>
+              <li>Give parents full context on their child</li>
+              <li>Highlight both strengths and areas to improve</li>
+            </ul>
+          </div>
+          <div class="persona-block">
+            <h4>Pain Points</h4>
+            <ul>
+              <li>Manual marksheets are error-prone</li>
+              <li>Hard to include qualitative notes in print</li>
+              <li>No visual way to show skill balance</li>
+              <li>PTMs feel rushed and information-poor</li>
+            </ul>
+          </div>
+        </div>
+        <div class="persona-row">
+          <div class="persona-block">
+            <h4>Behaviours</h4>
+            <ul>
+              <li>Prepares data 2–3 days before PTM</li>
+              <li>Uses laptop or tablet during meetings</li>
+              <li>Prefers clean, structured data views</li>
+            </ul>
+          </div>
+          <div class="persona-block">
+            <h4>Tech Comfort</h4>
+            <ul>
+              <li>Moderate tech proficiency</li>
+              <li>Uses Google Sheets / Forms</li>
+              <li>Values simplicity over features</li>
+            </ul>
+          </div>
+        </div>
+        <div class="persona-quote">"I want parents to truly understand where their child stands — not just see a number."</div>
+      </div>
+    </div>
+
+    <!-- PARENT -->
+    <div class="persona-card">
+      <div class="persona-card-header">
+        <div class="persona-avatar">👨‍👩‍👧</div>
+        <div>
+          <h3>Ramesh & Priya Kulkarni</h3>
+          <p>Working Parents · Daughter in Sem 4 · Ages 42 & 40</p>
+        </div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-stat-row">
+          <div class="persona-stat"><span class="stat-val">1/yr</span><span class="stat-label">PTM Attend</span></div>
+          <div class="persona-stat"><span class="stat-val">Low</span><span class="stat-label">Design Knowledge</span></div>
+          <div class="persona-stat"><span class="stat-val">High</span><span class="stat-label">Anxiety Level</span></div>
+        </div>
+        <div class="persona-row">
+          <div class="persona-block">
+            <h4>Goals</h4>
+            <ul>
+              <li>Understand child's academic health</li>
+              <li>Know which subjects need attention</li>
+              <li>Feel confident and informed</li>
+              <li>Get a holistic picture, not just marks</li>
+            </ul>
+          </div>
+          <div class="persona-block">
+            <h4>Pain Points</h4>
+            <ul>
+              <li>Dense marksheets are hard to read</li>
+              <li>Only see numbers, not context</li>
+              <li>Short meeting time feels insufficient</li>
+              <li>No take-away material after the meeting</li>
+            </ul>
+          </div>
+        </div>
+        <div class="persona-row">
+          <div class="persona-block">
+            <h4>Behaviours</h4>
+            <ul>
+              <li>Arrives with questions already prepared</li>
+              <li>Prefers visual, story-driven data</li>
+              <li>Wants to compare semester progress</li>
+            </ul>
+          </div>
+          <div class="persona-block">
+            <h4>Tech Comfort</h4>
+            <ul>
+              <li>Comfortable with smartphones</li>
+              <li>May want a link to revisit later</li>
+              <li>Prefers no login required to view</li>
+            </ul>
+          </div>
+        </div>
+        <div class="persona-quote">"I just want to know — is my daughter doing okay, and what can she do better?"</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 02. STORYBOARD ==================== -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-number">02 — Storyboard</div>
+      <h2 class="section-title">The PTM Journey</h2>
+      <p class="section-desc">Six scenes tracing the Professor's workflow — from preparation to the parent conversation.</p>
+    </div>
+  </div>
+
+  <div class="storyboard-grid">
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 01</span>
+        <span class="scene-icon">📅</span>
+        <span class="scene-title">PTM is Announced</span>
+      </div>
+      <div class="story-body">
+        <h4>Preparation Begins</h4>
+        <p>Professor Ananya receives the PTM schedule. She has 3 days to compile marks, notes, and performance summaries for 40+ students across 5 subjects.</p>
+        <span class="story-emotion emotion-anxious">😟 Anxious</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 02</span>
+        <span class="scene-icon">🔐</span>
+        <span class="scene-title">Admin Login</span>
+      </div>
+      <div class="story-body">
+        <h4>Secure Data Entry</h4>
+        <p>She logs into the PTM Architect admin panel using Internet Identity. The system recognises her as the registered Professor. She begins adding student records.</p>
+        <span class="story-emotion emotion-focused">🎯 Focused</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 03</span>
+        <span class="scene-icon">📝</span>
+        <span class="scene-title">Data Input</span>
+      </div>
+      <div class="story-body">
+        <h4>Entering Marks &amp; Notes</h4>
+        <p>For each student, she fills marks per subject (out of 100), uploads their photo, writes detailed notes per subject, and adds the psychological context description.</p>
+        <span class="story-emotion emotion-focused">🎯 Methodical</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 04</span>
+        <span class="scene-icon">🖥️</span>
+        <span class="scene-title">PTM Day — Presentation</span>
+      </div>
+      <div class="story-body">
+        <h4>The Meeting Begins</h4>
+        <p>Parents sit across from Prof. Ananya. She pulls up the student's profile on her screen — the elegant cream and gold dashboard fills the display with the student's photo and summary.</p>
+        <span class="story-emotion emotion-confident">💪 Confident</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 05</span>
+        <span class="scene-icon">📊</span>
+        <span class="scene-title">Analytics View</span>
+      </div>
+      <div class="story-body">
+        <h4>Visual Data Storytelling</h4>
+        <p>She switches to the Analytics page. Animated radar and pie charts appear, showing skill balance and mark distribution. Parents immediately grasp areas of strength and weakness.</p>
+        <span class="story-emotion emotion-satisfied">✨ Engaged</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-scene">
+        <span class="scene-num">SCENE 06</span>
+        <span class="scene-icon">🤝</span>
+        <span class="scene-title">Meeting Closes</span>
+      </div>
+      <div class="story-body">
+        <h4>Parents Leave Informed</h4>
+        <p>Parents leave feeling heard and well-informed. Prof. Ananya returns to the admin panel to add the next student. The cycle continues — smoothly and efficiently.</p>
+        <span class="story-emotion emotion-proud">🌟 Accomplished</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 03. UX FLOW ==================== -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-number">03 — UX Flow</div>
+      <h2 class="section-title">User Journey Maps</h2>
+      <p class="section-desc">End-to-end user flows for both roles — showing screens, decisions, and emotional states at each touchpoint.</p>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <div class="flow-label">PROFESSOR (Admin) FLOW</div>
+    <div class="flow-row">
+      <div class="flow-step highlight">
+        <div class="step-icon">🌐</div>
+        <div class="step-name">Open App</div>
+        <div class="step-desc">Visits the app URL in browser</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">🔑</div>
+        <div class="step-name">Login</div>
+        <div class="step-desc">Internet Identity authentication</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step accent">
+        <div class="step-icon">📋</div>
+        <div class="step-name">Admin Panel</div>
+        <div class="step-desc">Dashboard with all student cards</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">➕</div>
+        <div class="step-name">Add Student</div>
+        <div class="step-desc">Fill form: name, photo, class, sem</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">📊</div>
+        <div class="step-name">Enter Marks</div>
+        <div class="step-desc">5 subjects, scores out of 100</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">📝</div>
+        <div class="step-name">Add Notes</div>
+        <div class="step-desc">Subject notes + psych context</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step accent">
+        <div class="step-icon">💾</div>
+        <div class="step-name">Save</div>
+        <div class="step-desc">Data stored on ICP canister</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">
+        <div class="step-icon">👁️</div>
+        <div class="step-name">Preview</div>
+        <div class="step-desc">Review student presentation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <div class="flow-label">PARENT (Viewer) FLOW</div>
+    <div class="flow-row">
+      <div class="flow-step highlight">
+        <div class="step-icon">📱</div>
+        <div class="step-name">PTM Day</div>
+        <div class="step-desc">Arrives at meeting room</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">🖥️</div>
+        <div class="step-name">View Profile</div>
+        <div class="step-desc">Student photo, name, class, summary</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">📖</div>
+        <div class="step-name">Read Context</div>
+        <div class="step-desc">Psychological & overall performance</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step accent">
+        <div class="step-icon">📈</div>
+        <div class="step-name">View Analytics</div>
+        <div class="step-desc">Radar chart + pie chart</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-icon">📋</div>
+        <div class="step-name">Subject Notes</div>
+        <div class="step-desc">Per-subject details & progress bars</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">
+        <div class="step-icon">💬</div>
+        <div class="step-name">Discussion</div>
+        <div class="step-desc">Informed conversation with professor</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="touchpoint-grid">
+    <div class="touchpoint-card">
+      <h4>🔐 Authentication</h4>
+      <ul>
+        <li>Internet Identity login</li>
+        <li>Role: Professor only</li>
+        <li>First user claims admin</li>
+        <li>Session persists securely</li>
+      </ul>
+    </div>
+    <div class="touchpoint-card">
+      <h4>📸 Student Card</h4>
+      <ul>
+        <li>Photo upload (blob storage)</li>
+        <li>Name, class, semester</li>
+        <li>Overall performance text</li>
+        <li>Quick view & edit links</li>
+      </ul>
+    </div>
+    <div class="touchpoint-card">
+      <h4>📊 Analytics Page</h4>
+      <ul>
+        <li>Radar chart (skill balance)</li>
+        <li>Pie chart (mark weight)</li>
+        <li>Animated progress bars</li>
+        <li>Subject notes table</li>
+      </ul>
+    </div>
+    <div class="touchpoint-card">
+      <h4>🎨 3D Effects</h4>
+      <ul>
+        <li>Floating gold particles</li>
+        <li>Card tilt on hover</li>
+        <li>Scroll-in animations</li>
+        <li>Gradient shift on scroll</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 04. DESIGN SYSTEM ==================== -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-number">04 — Design System</div>
+      <h2 class="section-title">Visual Language</h2>
+      <p class="section-desc">The design language for PTM Architect is called "Modern Gallery" — refined, minimal, and purposefully warm.</p>
+    </div>
+  </div>
+
+  <div class="ds-grid">
+
+    <!-- COLORS -->
+    <div class="ds-card">
+      <h3>Color Palette</h3>
+      <div class="color-row">
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#F9F7F2;"></div>
+          <div class="swatch-name">Cream</div>
+          <div class="swatch-hex">#F9F7F2</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#1A1A1A;"></div>
+          <div class="swatch-name">Charcoal</div>
+          <div class="swatch-hex">#1A1A1A</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#B79B57;"></div>
+          <div class="swatch-name">Gold</div>
+          <div class="swatch-hex">#B79B57</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#D4B878;"></div>
+          <div class="swatch-name">Gold Light</div>
+          <div class="swatch-hex">#D4B878</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#F0E8D0;"></div>
+          <div class="swatch-name">Gold Pale</div>
+          <div class="swatch-hex">#F0E8D0</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#6B6B6B;"></div>
+          <div class="swatch-name">Gray</div>
+          <div class="swatch-hex">#6B6B6B</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#E8E4DC;"></div>
+          <div class="swatch-name">Gray Light</div>
+          <div class="swatch-hex">#E8E4DC</div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-box" style="background:#FFFFFF; border:1px solid #E8E4DC;"></div>
+          <div class="swatch-name">White</div>
+          <div class="swatch-hex">#FFFFFF</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="ds-card">
+      <h3>Typography Scale</h3>
+      <div class="type-row">
+        <div class="type-spec">Playfair Display · 52px · 700<br>Page Headings (Cover)</div>
+        <div class="type-preview" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;">Design Story</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Playfair Display · 32px · 600<br>Section Titles</div>
+        <div class="type-preview" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;">Student Profile</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Inter · 20px · 600<br>Card Headings</div>
+        <div class="type-preview" style="font-size:16px;font-weight:600;">Typography · 84/100</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Inter · 14px · 400<br>Body Text</div>
+        <div class="type-preview" style="font-size:13px;">Student shows strong visual instincts across all subjects.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Inter · 10px · 600 · Uppercase<br>Labels &amp; Badges</div>
+        <div class="type-preview" style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B79B57;">Overall Performance</div>
+      </div>
+    </div>
+
+    <!-- SPACING -->
+    <div class="ds-card">
+      <h3>Spacing Scale (8pt Grid)</h3>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:4px;"></div>
+        <div class="spacing-label">xs — 4px</div>
+        <div class="spacing-val">Icon gaps, inline spacing</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:8px;"></div>
+        <div class="spacing-label">sm — 8px</div>
+        <div class="spacing-val">List item padding, badge padding</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:16px;"></div>
+        <div class="spacing-label">md — 16px</div>
+        <div class="spacing-val">Card inner padding, row gaps</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:24px;"></div>
+        <div class="spacing-label">lg — 24px</div>
+        <div class="spacing-val">Section gaps, grid gaps</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:32px;"></div>
+        <div class="spacing-label">xl — 32px</div>
+        <div class="spacing-val">Card padding, major sections</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:48px;"></div>
+        <div class="spacing-label">2xl — 48px</div>
+        <div class="spacing-val">Section header margin</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar" style="width:64px;"></div>
+        <div class="spacing-label">3xl — 64px</div>
+        <div class="spacing-val">Page padding, cover spacing</div>
+      </div>
+    </div>
+
+    <!-- EFFECTS -->
+    <div class="ds-card">
+      <h3>Shadows &amp; Radius</h3>
+      <div class="shadow-row">
+        <div class="shadow-box" style="box-shadow:0 2px 8px rgba(26,26,26,0.06);"></div>
+        <div class="shadow-details">
+          <h4>Shadow XS</h4>
+          <p>0 2px 8px rgba(26,26,26,0.06)</p>
+          <span style="font-size:10px;color:#6B6B6B;">Badges, tags</span>
+        </div>
+      </div>
+      <div class="shadow-row">
+        <div class="shadow-box" style="box-shadow:0 4px 24px rgba(26,26,26,0.08);"></div>
+        <div class="shadow-details">
+          <h4>Shadow MD (Default)</h4>
+          <p>0 4px 24px rgba(26,26,26,0.08)</p>
+          <span style="font-size:10px;color:#6B6B6B;">Cards, panels</span>
+        </div>
+      </div>
+      <div class="shadow-row">
+        <div class="shadow-box" style="box-shadow:0 12px 40px rgba(26,26,26,0.14);"></div>
+        <div class="shadow-details">
+          <h4>Shadow LG</h4>
+          <p>0 12px 40px rgba(26,26,26,0.14)</p>
+          <span style="font-size:10px;color:#6B6B6B;">Modals, elevated cards</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="grid-row">
+          <div class="grid-pill">xs — <span>4px</span></div>
+          <div class="grid-pill">sm — <span>8px</span></div>
+          <div class="grid-pill">md — <span>12px</span></div>
+          <div class="grid-pill">lg — <span>16px</span></div>
+          <div class="grid-pill">xl — <span>24px</span> (Cards)</div>
+          <div class="grid-pill">full — <span>9999px</span> (Pills)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 05. UI KIT ==================== -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-number">05 — UI Kit</div>
+      <h2 class="section-title">Component Library</h2>
+      <p class="section-desc">All UI components used in the application — with states, variants, and usage context.</p>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="uikit-section">
+    <h3>Navigation Bar</h3>
+    <div class="nav-spec">
+      <div class="nav-brand">PTM <span>Architect</span></div>
+      <div class="nav-links">
+        <a class="nav-link active" href="#">Students</a>
+        <a class="nav-link" href="#">Analytics</a>
+        <a class="nav-link" href="#">Settings</a>
+      </div>
+      <a class="nav-cta" href="#">+ Add Student</a>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="uikit-section">
+    <h3>Buttons</h3>
+    <div class="btn-row">
+      <div class="btn-spec"><button class="btn btn-primary btn-sm">Label</button><div class="btn-label">Primary SM</div></div>
+      <div class="btn-spec"><button class="btn btn-primary">Label</button><div class="btn-label">Primary MD</div></div>
+      <div class="btn-spec"><button class="btn btn-primary btn-lg">Label</button><div class="btn-label">Primary LG</div></div>
+      <div class="btn-spec"><button class="btn btn-gold">Gold Fill</button><div class="btn-label">Gold Fill</div></div>
+      <div class="btn-spec"><button class="btn btn-outline">Outline</button><div class="btn-label">Outline Dark</div></div>
+      <div class="btn-spec"><button class="btn btn-outline-gold">Outline</button><div class="btn-label">Outline Gold</div></div>
+      <div class="btn-spec"><button class="btn btn-ghost">Ghost</button><div class="btn-label">Ghost</div></div>
+      <div class="btn-spec"><button class="btn btn-danger">Delete</button><div class="btn-label">Danger</div></div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="uikit-section">
+    <h3>Cards</h3>
+    <div class="card-row">
+      <div class="card-spec">
+        <div class="card-tag">Student Card</div>
+        <h4>Riya Mehta</h4>
+        <p>Sem 4 · Avg 82/100 · B.Des Visual Comm.</p>
+      </div>
+      <div class="card-spec" style="border-top:3px solid #B79B57;">
+        <div class="card-tag">Accent Card</div>
+        <h4>Analytics Summary</h4>
+        <p>Strongest in Typography (91), needs support in History (62).</p>
+      </div>
+      <div class="card-spec" style="background:#1A1A1A;">
+        <div class="card-tag" style="color:#D4B878;">Dark Card</div>
+        <h4 style="color:#fff;">Psychological Context</h4>
+        <p style="color:rgba(255,255,255,0.6);">Student is motivated but faces external pressure at home.</p>
+      </div>
+      <div class="card-spec" style="background:#F0E8D0;border:1px solid #D4B878;">
+        <div class="card-tag">Highlight Card</div>
+        <h4>Overall Performance</h4>
+        <p>Excels in execution. Creative vision is above class average.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BADGES -->
+  <div class="uikit-section">
+    <h3>Badges &amp; Tags</h3>
+    <div class="badge-row">
+      <span class="badge badge-gold">Professor</span>
+      <span class="badge badge-dark">Semester 4</span>
+      <span class="badge badge-success">Excellent</span>
+      <span class="badge badge-warning">Needs Attention</span>
+      <span class="badge badge-danger">At Risk</span>
+      <span class="badge badge-neutral">Draft</span>
+    </div>
+  </div>
+
+  <!-- FORM ELEMENTS -->
+  <div class="uikit-section">
+    <h3>Form Elements</h3>
+    <div class="form-row">
+      <div class="form-spec">
+        <label>Student Name</label>
+        <input class="form-input" type="text" placeholder="e.g. Riya Mehta" />
+        <div class="form-helper">Full name as per admission records</div>
+      </div>
+      <div class="form-spec">
+        <label>Subject Mark</label>
+        <input class="form-input form-input-focused" type="number" placeholder="Enter mark out of 100" />
+        <div class="form-helper">Active / Focused state</div>
+      </div>
+      <div class="form-spec">
+        <label>Class</label>
+        <input class="form-input form-input-error" type="text" placeholder="e.g. B.Des Visual Comm." />
+        <div class="form-helper error">This field is required</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS BARS -->
+  <div class="uikit-section">
+    <h3>Progress Bars</h3>
+    <div class="progress-spec">
+      <div class="progress-label"><span>Typography</span><span style="color:#B79B57;font-weight:600;">91/100</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:91%;"></div></div>
+    </div>
+    <div class="progress-spec">
+      <div class="progress-label"><span>Illustration</span><span style="color:#B79B57;font-weight:600;">78/100</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:78%;"></div></div>
+    </div>
+    <div class="progress-spec">
+      <div class="progress-label"><span>Design History</span><span style="color:#B79B57;font-weight:600;">62/100</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:62%;background:#C4A24A;"></div></div>
+    </div>
+    <div class="progress-spec">
+      <div class="progress-label"><span>Color Theory</span><span style="color:#B79B57;font-weight:600;">45/100</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:45%;background:#8B7340;"></div></div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="uikit-section">
+    <h3>Data Table — Marks Sheet</h3>
+    <table class="table-spec">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Marks (Out of 100)</th>
+          <th>Grade</th>
+          <th>Status</th>
+          <th>Detailed Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Typography</strong></td>
+          <td>91</td>
+          <td>A+</td>
+          <td><span class="badge badge-success">Excellent</span></td>
+          <td style="color:#6B6B6B;">Outstanding letterform control and hierarchy.</td>
+        </tr>
+        <tr>
+          <td><strong>Illustration</strong></td>
+          <td>78</td>
+          <td>B+</td>
+          <td><span class="badge badge-gold">Good</span></td>
+          <td style="color:#6B6B6B;">Consistent line quality; can push concept further.</td>
+        </tr>
+        <tr>
+          <td><strong>Color Theory</strong></td>
+          <td>84</td>
+          <td>A</td>
+          <td><span class="badge badge-success">Excellent</span></td>
+          <td style="color:#6B6B6B;">Strong understanding of warm-cool contrast.</td>
+        </tr>
+        <tr>
+          <td><strong>Visual Communication</strong></td>
+          <td>70</td>
+          <td>B</td>
+          <td><span class="badge badge-gold">Good</span></td>
+          <td style="color:#6B6B6B;">Needs more clarity in layout decision-making.</td>
+        </tr>
+        <tr>
+          <td><strong>Design History</strong></td>
+          <td>62</td>
+          <td>C+</td>
+          <td><span class="badge badge-warning">Needs Attention</span></td>
+          <td style="color:#6B6B6B;">Struggled with Bauhaus unit. Recommend revision.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- BACK COVER -->
+<div class="cover" style="min-height:60vh;padding:60px;">
+  <div class="cover-badge">End of Case Study</div>
+  <h1 style="font-size:36px;">PTM <span>Architect</span></h1>
+  <p class="cover-sub" style="margin-bottom:32px;">Designed to give every parent a window into their child's creative journey.</p>
+  <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;">React · Motoko · Three.js · Internet Computer · 2026</div>
+</div>
+
+<!-- LO-FI WIREFRAMES SECTION -->
+<div style="page-break-before:always;padding:60px;background:#F9F7F2;min-height:100vh;">
+  <div style="max-width:900px;margin:0 auto;">
+    <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#B79B57;font-weight:600;margin-bottom:8px;">Section 06</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:36px;color:#1A1A1A;margin-bottom:8px;">Lo-Fidelity Wireframes</h2>
+    <p style="color:#6B6B6B;font-size:13px;margin-bottom:40px;">Early-stage structural layout explorations before visual design was applied.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <div>
+        <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#B79B57;margin-bottom:12px;font-weight:600;">01 — Admin Dashboard</p>
+        <div style="border:1.5px solid #E8E4DC;border-radius:12px;padding:20px;background:#fff;">
+          <div style="border:1px solid #ccc;border-radius:4px;height:28px;margin-bottom:12px;display:flex;align-items:center;padding:0 8px;gap:8px;">
+            <div style="width:30px;height:10px;background:#E8E4DC;border-radius:2px;"></div>
+            <div style="flex:1;"></div>
+            <div style="width:60px;height:10px;background:#D4B878;border-radius:2px;opacity:0.6;"></div>
+            <div style="width:50px;height:10px;background:#E8E4DC;border-radius:2px;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div>
+              <div style="width:40px;height:6px;background:#B79B57;border-radius:3px;margin-bottom:4px;"></div>
+              <div style="width:120px;height:14px;background:#1A1A1A;border-radius:3px;opacity:0.7;margin-bottom:4px;"></div>
+              <div style="width:80px;height:6px;background:#E8E4DC;border-radius:3px;"></div>
+            </div>
+            <div style="width:80px;height:28px;background:#B79B57;border-radius:6px;opacity:0.7;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:10px;background:#F9F7F2;"><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;"><div style="width:24px;height:24px;border-radius:50%;background:#E8E4DC;"></div><div><div style="width:50px;height:5px;background:#1A1A1A;border-radius:2px;opacity:0.5;margin-bottom:2px;"></div><div style="width:35px;height:4px;background:#E8E4DC;border-radius:2px;"></div></div></div><div style="display:flex;gap:4px;margin-top:8px;"><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div><div style="flex:1;height:18px;background:#E8E4DC;border-radius:4px;"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#B79B57;margin-bottom:12px;font-weight:600;">02 — Student Profile</p>
+        <div style="border:1.5px solid #E8E4DC;border-radius:12px;padding:20px;background:#fff;">
+          <div style="border:1px solid #ccc;border-radius:4px;height:28px;margin-bottom:16px;"></div>
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;padding:12px;border:1px solid #E8E4DC;border-radius:8px;background:#F9F7F2;">
+            <div style="width:48px;height:48px;border-radius:50%;background:#E8E4DC;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="width:100px;height:10px;background:#1A1A1A;border-radius:3px;opacity:0.6;margin-bottom:6px;"></div><div style="width:70px;height:6px;background:#B79B57;border-radius:3px;opacity:0.6;margin-bottom:4px;"></div><div style="width:80px;height:5px;background:#E8E4DC;border-radius:2px;"></div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;grid-column:1/-1;background:#F9F7F2;"><div style="width:80px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:6px;opacity:0.5;"></div><div style="width:100%;height:5px;background:#E8E4DC;border-radius:2px;margin-bottom:4px;"></div><div style="width:80%;height:5px;background:#E8E4DC;border-radius:2px;"></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;background:#F9F7F2;"><div style="width:60px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:8px;opacity:0.5;"></div><div style="height:4px;width:40px;background:#D4B878;border-radius:2px;margin-bottom:3px;"></div><div style="height:4px;width:60px;background:#D4B878;border-radius:2px;margin-bottom:3px;"></div><div style="height:4px;width:55px;background:#D4B878;border-radius:2px;margin-bottom:3px;"></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;background:#F9F7F2;"><div style="width:60px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:8px;opacity:0.5;"></div><div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;"><div style="width:4px;height:4px;border-radius:50%;background:#B79B57;"></div><div style="flex:1;height:4px;background:#E8E4DC;border-radius:2px;"></div><div style="width:20px;height:4px;background:#D4B878;border-radius:2px;"></div></div><div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;"><div style="width:4px;height:4px;border-radius:50%;background:#B79B57;"></div><div style="flex:1;height:4px;background:#E8E4DC;border-radius:2px;"></div><div style="width:20px;height:4px;background:#D4B878;border-radius:2px;"></div></div><div style="display:flex;gap:6px;align-items:center;"><div style="width:4px;height:4px;border-radius:50%;background:#B79B57;"></div><div style="flex:1;height:4px;background:#E8E4DC;border-radius:2px;"></div><div style="width:20px;height:4px;background:#D4B878;border-radius:2px;"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#B79B57;margin-bottom:12px;font-weight:600;">03 — Analytics View</p>
+        <div style="border:1.5px solid #E8E4DC;border-radius:12px;padding:20px;background:#fff;">
+          <div style="border:1px solid #ccc;border-radius:4px;height:28px;margin-bottom:16px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;background:#F9F7F2;"><div style="width:60px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:12px;opacity:0.5;"></div><div style="width:70px;height:70px;border:1.5px solid #D4B878;margin:0 auto;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#FFF8E8;"></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;background:#F9F7F2;"><div style="width:60px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:12px;opacity:0.5;"></div><div style="width:70px;height:70px;border-radius:50%;margin:0 auto;background:conic-gradient(#B79B57 0 30%, #D4B878 30% 55%, #8B6914 55% 75%, #E8D5A3 75% 90%, #5C4A28 90% 100%);"></div></div>
+          </div>
+          <div style="border:1px solid #E8E4DC;border-radius:8px;padding:12px;background:#F9F7F2;margin-top:8px;">
+            <div style="width:80px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:8px;opacity:0.5;"></div>
+            <svg width="100%" height="50" viewBox="0 0 200 50"><polyline points="0,40 40,30 80,20 120,25 160,10 200,15" stroke="#B79B57" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/><line x1="0" y1="50" x2="200" y2="50" stroke="#E8E4DC" stroke-width="1"/></svg>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#B79B57;margin-bottom:12px;font-weight:600;">04 — Data Entry Form</p>
+        <div style="border:1.5px solid #E8E4DC;border-radius:12px;padding:20px;background:#fff;">
+          <div style="border:1px solid #ccc;border-radius:4px;height:28px;margin-bottom:16px;"></div>
+          <div style="border:1px solid #E8E4DC;border-radius:8px;padding:14px;background:#F9F7F2;">
+            <div style="width:80px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:12px;opacity:0.5;"></div>
+            <div style="display:flex;gap:10px;margin-bottom:10px;"><div style="width:48px;height:48px;border-radius:8px;border:1px dashed #D4B878;background:#fff;"></div><div style="flex:1;"><div style="height:22px;border:1px solid #E8E4DC;border-radius:6px;margin-bottom:6px;background:#fff;"></div><div style="height:22px;border:1px solid #E8E4DC;border-radius:6px;background:#fff;"></div></div></div>
+            <div style="display:flex;gap:4px;margin:10px 0;padding:3px;background:#E8E4DC;border-radius:8px;"><div style="flex:1;height:18px;border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#1A1A1A;">S1</span></div><div style="flex:1;height:18px;border-radius:5px;background:transparent;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#1A1A1A;opacity:0.5;">S2</span></div><div style="flex:1;height:18px;border-radius:5px;background:transparent;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#1A1A1A;opacity:0.5;">S3</span></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:6px;padding:8px;background:#fff;margin-bottom:5px;"><div style="width:50px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.4;margin-bottom:5px;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div style="background:#F9F7F2;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/60</span></div><div style="background:#F9F7F2;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/40</span></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:6px;padding:8px;background:#fff;margin-bottom:5px;"><div style="width:50px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.4;margin-bottom:5px;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div style="background:#F9F7F2;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/60</span></div><div style="background:#F9F7F2;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/40</span></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HI-FI MOCKUPS SECTION -->
+<div style="page-break-before:always;padding:60px;background:#1A1A1A;min-height:100vh;">
+  <div style="max-width:900px;margin:0 auto;">
+    <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#B79B57;font-weight:600;margin-bottom:8px;">Section 07</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:36px;color:#F9F7F2;margin-bottom:8px;">High-Fidelity Screens</h2>
+    <p style="color:#888;font-size:13px;margin-bottom:40px;">Final polished interface screens implementing the Modern Gallery design system.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:#2A2A2A;border-radius:16px;padding:24px;border:1px solid #333;">
+        <p style="color:#B79B57;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;font-weight:600;">Admin Dashboard</p>
+        <div style="background:#F9F7F2;border-radius:10px;padding:14px;">
+          <div style="background:#1A1A1A;border-radius:6px;height:24px;margin-bottom:10px;display:flex;align-items:center;padding:0 10px;gap:6px;"><div style="width:16px;height:16px;border-radius:50%;background:#B79B57;"></div><div style="width:70px;height:5px;background:#F9F7F2;border-radius:2px;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="background:#FFF0F0;border:1px solid #FFD6D6;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+            <div style="background:#F0F8FF;border:1px solid #C8E6FF;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+            <div style="background:#F0FFF4;border:1px solid #C6F6D5;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+            <div style="background:#FFFBF0;border:1px solid #FFE8A0;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+            <div style="background:#F5F0FF;border:1px solid #DDD6FE;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+            <div style="background:#FFF5F0;border:1px solid #FECBA1;border-radius:8px;padding:8px;"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;"><div style="width:16px;height:16px;border-radius:50%;background:#E8E4DC;"></div><div style="width:35px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.5;"></div></div><div style="width:25px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:4px;opacity:0.6;"></div><div style="display:flex;gap:3px;"><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div><div style="flex:1;height:12px;background:#E8E4DC;border-radius:3px;"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#2A2A2A;border-radius:16px;padding:24px;border:1px solid #333;">
+        <p style="color:#B79B57;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;font-weight:600;">Analytics View</p>
+        <div style="background:#F9F7F2;border-radius:10px;padding:14px;">
+          <div style="background:#1A1A1A;border-radius:6px;height:24px;margin-bottom:10px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
+            <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;"><div style="width:40px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:8px;opacity:0.6;"></div><div style="width:60px;height:60px;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:linear-gradient(135deg,#D4B878,#8B6914);margin:0 auto;opacity:0.5;"></div></div>
+            <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;"><div style="width:40px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:8px;opacity:0.6;"></div><div style="width:60px;height:60px;border-radius:50%;background:conic-gradient(#B79B57 0 30%,#D4B878 30% 55%,#8B6914 55% 75%,#E8D5A3 75% 90%,#5C4A28 90% 100%);margin:0 auto;"></div></div>
+          </div>
+          <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;">
+            <div style="width:60px;height:3px;background:#B79B57;border-radius:2px;margin-bottom:6px;opacity:0.6;"></div>
+            <svg width="100%" height="40" viewBox="0 0 200 40"><polyline points="0,35 40,25 80,15 120,20 160,8 200,12" stroke="#B79B57" stroke-width="2" fill="none"/><polyline points="0,30 40,22 80,28 120,15 160,20 200,10" stroke="#D4B878" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/></svg>
+          </div>
+        </div>
+      </div>
+      <div style="background:#2A2A2A;border-radius:16px;padding:24px;border:1px solid #333;">
+        <p style="color:#B79B57;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;font-weight:600;">Student Profile</p>
+        <div style="background:#F9F7F2;border-radius:10px;padding:14px;">
+          <div style="background:#1A1A1A;border-radius:6px;height:24px;margin-bottom:10px;"></div>
+          <div style="background:#fff;border-radius:10px;padding:10px;border:1px solid #E8E4DC;margin-bottom:6px;display:flex;gap:10px;align-items:center;"><div style="width:40px;height:40px;border-radius:50%;background:#E8E4DC;flex-shrink:0;"></div><div><div style="width:80px;height:6px;background:#1A1A1A;border-radius:3px;margin-bottom:4px;opacity:0.7;"></div><div style="width:50px;height:4px;background:#B79B57;border-radius:2px;opacity:0.6;"></div></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;grid-column:1/-1;"><div style="width:60px;height:4px;background:#B79B57;border-radius:2px;margin-bottom:6px;opacity:0.5;"></div><div style="width:100%;height:4px;background:#E8E4DC;border-radius:2px;margin-bottom:3px;"></div><div style="width:80%;height:4px;background:#E8E4DC;border-radius:2px;"></div></div>
+            <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;"><div style="width:50px;height:4px;background:#B79B57;border-radius:2px;margin-bottom:6px;opacity:0.5;"></div><div style="display:flex;gap:4px;align-items:center;margin-bottom:3px;"><div style="width:37px;height:3px;background:#B79B57;border-radius:2px;"></div></div><div style="display:flex;gap:4px;align-items:center;margin-bottom:3px;"><div style="width:41px;height:3px;background:#B79B57;border-radius:2px;"></div></div><div style="display:flex;gap:4px;align-items:center;margin-bottom:3px;"><div style="width:34px;height:3px;background:#B79B57;border-radius:2px;"></div></div></div>
+            <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:8px;"><div style="width:50px;height:4px;background:#B79B57;border-radius:2px;margin-bottom:6px;opacity:0.5;"></div><div style="width:100%;height:4px;background:#E8E4DC;border-radius:2px;margin-bottom:3px;"></div><div style="width:70%;height:4px;background:#E8E4DC;border-radius:2px;margin-bottom:3px;"></div><div style="width:90%;height:4px;background:#E8E4DC;border-radius:2px;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#2A2A2A;border-radius:16px;padding:24px;border:1px solid #333;">
+        <p style="color:#B79B57;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;font-weight:600;">Marks Entry Form</p>
+        <div style="background:#F9F7F2;border-radius:10px;padding:14px;">
+          <div style="background:#1A1A1A;border-radius:6px;height:24px;margin-bottom:10px;"></div>
+          <div style="background:#fff;border-radius:8px;border:1px solid #E8E4DC;padding:10px;">
+            <div style="width:80px;height:5px;background:#B79B57;border-radius:2px;margin-bottom:10px;opacity:0.5;"></div>
+            <div style="display:flex;gap:4px;margin-bottom:8px;padding:3px;background:#F0ECE4;border-radius:10px;"><div style="flex:1;background:#fff;border-radius:7px;padding:3px 0;text-align:center;"><span style="font-size:7px;color:#1A1A1A;">Sem 1</span></div><div style="flex:1;padding:3px 0;text-align:center;"><span style="font-size:7px;color:#1A1A1A;opacity:0.5;">Sem 2</span></div><div style="flex:1;padding:3px 0;text-align:center;"><span style="font-size:7px;color:#1A1A1A;opacity:0.5;">Sem 3</span></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:6px;padding:7px;margin-bottom:4px;background:#F9F7F2;"><div style="width:50px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.4;margin-bottom:5px;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div style="background:#fff;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/60</span></div><div style="background:#fff;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/40</span></div></div></div>
+            <div style="border:1px solid #E8E4DC;border-radius:6px;padding:7px;margin-bottom:4px;background:#F9F7F2;"><div style="width:50px;height:4px;background:#1A1A1A;border-radius:2px;opacity:0.4;margin-bottom:5px;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div style="background:#fff;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/60</span></div><div style="background:#fff;border:1px solid #E8E4DC;border-radius:4px;height:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;"><span style="font-size:7px;color:#6B6B6B;">/40</span></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div style="padding:60px;background:#F9F7F2;text-align:center;">
+  <div style="max-width:600px;margin:0 auto;">
+    <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#B79B57;font-weight:600;margin-bottom:12px;">Access the Product</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:#1A1A1A;margin-bottom:16px;">Experience It Live</h2>
+    <p style="color:#6B6B6B;font-size:14px;line-height:1.7;margin-bottom:32px;">The PTM Student Performance Architect is live on the Internet Computer blockchain. Professors can log in and start managing student data immediately.</p>
+    <div style="display:inline-block;background:#B79B57;color:#fff;padding:14px 40px;border-radius:50px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">PTM Architect — Live App</div>
+    <p style="color:#B79B57;font-size:11px;letter-spacing:0.1em;margin-top:8px;">Built on the Internet Computer · Powered by Caffeine AI</p>
+  </div>
+</div>
+
+</body>
+</html>
